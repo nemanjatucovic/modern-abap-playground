@@ -1,0 +1,17 @@
+Illustrative DDIC table: ZPO_APPR_CONFIG
+
+Purpose:
+Stores purchase-order approval thresholds by company code and currency.
+
+Suggested fields:
+- MANDT     : CLNT, key
+- BUKRS     : BUKRS, key
+- WAERS     : WAERS, key
+- THRESHOLD : suitable currency/decimal amount type
+
+Example records:
+1000 | EUR | 10000
+2000 | EUR | 25000
+3000 | GBP | 15000
+
+For a real SAP implementation, define appropriate data elements, currency semantics, delivery class, maintenance settings, authorization concept, and a controlled maintenance mechanism such as a customizing view/app according to project standards.

@@ -1,0 +1,13 @@
+# IDE / OS metadata
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Eclipse workspace metadata
+.metadata/
+.settings/
+
+# Temporary files
+*.tmp
+*.bak
