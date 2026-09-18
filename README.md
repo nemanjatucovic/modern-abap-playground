@@ -27,37 +27,9 @@ src/
 docs/                 Supporting notes and technical explanations
 ```
 
-## Planned Examples
+## Purchase Order Approval Engine
 
-### ABAP OO
-- Interfaces and polymorphism
-- Dependency injection
-- Factory pattern
-- Singleton pattern
-- Exception handling
-
-### Data & Performance
-- Standard vs sorted vs hashed internal tables
-- Binary search
-- Efficient table expressions
-- Modern Open SQL
-- Code pushdown concepts
-
-### CDS & RAP
-- CDS associations and cardinality
-- CDS annotations
-- CDS table functions and AMDP concepts
-- RAP business objects
-- OData exposure
-
-### Testing
-- ABAP Unit
-- Testable class design
-- Test doubles and dependency isolation
-
-## First Scenario — Purchase Order Approval Engine
-
-The first example will model a generic purchase-order approval service. It will be used to demonstrate interfaces, implementation classes, dependency injection, exception handling, and ABAP Unit.
+The first scenario models a generic purchase-order approval service and demonstrates interfaces, dependency injection, Strategy-style approval rules, configuration access, exception handling, and ABAP Unit.
 
 ```text
 Purchase Order
@@ -67,9 +39,44 @@ Approval Service
       |
       +--> Approval Rules
       |
+      +--> Configuration Provider
+      |
       v
 Approval Decision
 ```
+
+### Data access & performance extension
+
+The Approval Engine is also used to demonstrate:
+
+- `SORTED TABLE` with `(BUKRS, THRESHOLD)` for multiple ordered rules per company code
+- when a `HASHED TABLE` is appropriate for complete unique-key lookups
+- modern Open SQL with host variables and database-side filtering
+- code pushdown by selecting only the highest qualifying threshold
+- avoiding `SELECT` inside `LOOP`
+- configuration caching for mass PO processing
+- safe `FOR ALL ENTRIES` usage
+- CDS interface view entities for PO header, PO item, and approval configuration
+- the row-multiplication problem when a simple CDS join meets multiple thresholds
+
+See [`docs/data-access-and-performance.md`](docs/data-access-and-performance.md) for the design reasoning and interview takeaways.
+
+## Planned next steps
+
+### CDS & HANA
+- Complete the approval-decision CDS model
+- Associations and cardinality
+- Aggregation/ranking alternatives
+- CDS table function + AMDP comparison
+
+### RAP
+- RAP business object
+- Behavior definition and implementation
+- OData exposure
+
+### Testing
+- Extend ABAP Unit coverage to data-access and threshold boundary cases
+- Test doubles and dependency isolation
 
 ## About
 
